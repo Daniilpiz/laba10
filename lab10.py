@@ -9,7 +9,7 @@ def main():
         
         validation_errors = validate_graph_parameters(final_params)
         if validation_errors:
-            print("❌ Ошибки в параметрах графа:")
+            print("Ошибки в параметрах графа:")
             for error in validation_errors:
                 print(f"  • {error}")
             print_usage_examples()
@@ -30,10 +30,10 @@ def main():
         
         print_graph_info(graph, is_directed, is_weighted)
         
-        print(f"\n🚀 BFS обход из вершины {final_params['start_vertex']}:")
+        print(f"\nBFS обход из вершины {final_params['start_vertex']}:")
         distances = bfsd(graph, final_params['start_vertex'])
         
-        print(f"\n📊 Расстояния от вершины {final_params['start_vertex']}:")
+        print(f"\n Расстояния от вершины {final_params['start_vertex']}:")
         reachable = 0
         for i, dist in enumerate(distances):
             status = str(dist) if dist != -1 else "недостижима"
@@ -41,20 +41,18 @@ def main():
             if dist != -1:
                 reachable += 1
         
-        print(f"\n📈 Статистика:")
-        print(f"  • Достижимо вершин: {reachable}/{len(graph)}")
-        print(f"  • Процент достижимости: {reachable/len(graph)*100:.1f}%")
+       
         
         if reachable > 0:
             max_dist = max(d for d in distances if d != -1)
             print(f"  • Максимальное расстояние: {max_dist}")
         
-        if len(args.args) < 3:
-            print(f"\n💡 Подсказка: можно указать до 5 параметров в любом порядке")
-            print_usage_examples()
+        # if len(args.args) < 3:
+        #     print(f"\n💡 Подсказка: можно указать до 5 параметров в любом порядке")
+        #     print_usage_examples()
         
     except Exception as e:
-        print(f"❌ Неожиданная ошибка: {e}")
+        print(f"Неожиданная ошибка: {e}")
         print_usage_examples()
         sys.exit(1)
 
