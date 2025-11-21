@@ -12,7 +12,7 @@ def main():
             print("Ошибки в параметрах графа:")
             for error in validation_errors:
                 print(f"  • {error}")
-            print_usage_examples()
+            
             sys.exit(1)
         
         print_current_config(final_params, len(args.args))
@@ -28,7 +28,6 @@ def main():
             density=final_params['density']
         )
         
-        print_graph_info(graph, is_directed, is_weighted)
         
         print(f"\nBFS обход из вершины {final_params['start_vertex']}:")
         distances = bfsd(graph, final_params['start_vertex'])
@@ -48,12 +47,11 @@ def main():
             print(f"  • Максимальное расстояние: {max_dist}")
         
         # if len(args.args) < 3:
-        #     print(f"\n💡 Подсказка: можно указать до 5 параметров в любом порядке")
+        #     print(f"\n Подсказка: можно указать до 5 параметров в любом порядке")
         #     print_usage_examples()
         
     except Exception as e:
         print(f"Неожиданная ошибка: {e}")
-        print_usage_examples()
         sys.exit(1)
 
 if __name__ == "__main__":

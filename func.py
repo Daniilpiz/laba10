@@ -3,6 +3,8 @@ import sys
 from collections import deque
 import random
 
+import numpy as np
+
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Lab 10: Обход графа алгоритмом BFS',
@@ -143,7 +145,7 @@ def generate_graph(size, is_weighted, is_directed, density):
                 
                 if not is_directed and i != j:
                     graph[j][i] = weight
-    
+    print(np.array(graph))
     return graph
 
 def bfsd(G, v):
@@ -162,44 +164,15 @@ def bfsd(G, v):
 
     return dist
 
-def print_graph_info(graph, is_directed, is_weighted):
-    """Выводит информацию о графе"""
-    size = len(graph)
-    edges = 0
-    total_weight = 0
     
-    for i in range(size):
-        for j in range(size):
-            if graph[i][j] > 0:
-                edges += 1
-                total_weight += graph[i][j]
-    
-    if not is_directed:
-        edges = edges // 2
-    
-    print(f"  • Ребра: {edges}")
-    if is_weighted:
-        print(f"  • Общий вес: {total_weight}")
-        if edges > 0:
-            print(f"  • Средний вес: {total_weight/edges:.2f}")
-
-def print_usage_examples():
-    """Показывает примеры использования"""
-    print("\n📋 Примеры использования (аргументы в ЛЮБОМ порядке):")
-    print("  python lab10.py 10 0 weighted ori 0.6")
-    print("  python lab10.py 0 10 ori weighted 0.6     # стартовая вершина ПЕРЕД размером!")
-    print("  python lab10.py ori 0.6 0 10 weighted     # любой порядок")
-    print("  python lab10.py 5 20                      # стартовая вершина 5, размер 20")
-    print("  python lab10.py 20 5                      # размер 20, стартовая 5")
-    print("  python lab10.py 15                        # только размер (стартовая=0)")
 
 def print_current_config(params, args_count):
     """Выводит текущую конфигурацию графа"""
     is_directed = params['graph_type'] == 'ori'
     is_weighted = params['weighted_mode'] == 'weighted'
     
-    print(f"\n🎯 Конфигурация графа:")
-    print(f"  • Размер: {params['graph_size']} вершин")
+    print(f"\n Конфигурация графа:")
+    print(f"  • {params['graph_size']} вершин")
     print(f"  • Стартовая вершина: {params['start_vertex']}")
     print(f"  • Тип: {'ориентированный' if is_directed else 'неориентированный'}")
     print(f"  • Взвешенность: {'взвешенный' if is_weighted else 'невзвешенный'}")
