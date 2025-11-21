@@ -20,7 +20,7 @@ def main():
         is_directed = final_params['graph_type'] == 'ori'
         is_weighted = final_params['weighted_mode'] == 'weighted'
         
-        print(f"\n🔧 Генерация графа...")
+        print(f"\n Генерация графа...")
         graph = generate_graph(
             size=final_params['graph_size'],
             is_weighted=is_weighted,
