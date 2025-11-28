@@ -16,7 +16,6 @@ def parse_arguments():
     return parser.parse_args()
 
 def smart_convert(value):
-    """Умное преобразование типов"""
     try:
         return int(value)
     except ValueError:
@@ -26,10 +25,7 @@ def smart_convert(value):
             return value.lower()
 
 def classify_and_identify_arguments(args):
-    """
-    Классифицирует и идентифицирует аргументы по их значению
-    Теперь можно указывать стартовую вершину перед размером графа!
-    """
+    
     weighted_keywords = ['weighted', 'unweighted', 'взвешенный', 'невзвешенный']
     type_keywords = ['ori', 'unori', 'directed', 'undirected', 'ориентированный', 'неориентированный']
     
@@ -94,12 +90,11 @@ def classify_and_identify_arguments(args):
     return result
 
 def apply_defaults(params):
-    """Применяет значения по умолчанию для None параметров"""
     defaults = {
-        'graph_size': 10,
+        'graph_size': 5,
         'start_vertex': 0,
         'weighted_mode': 'unweighted',
-        'graph_type': 'unori',
+        'graph_type': 'ori',
         'density': 0.5
     }
     
@@ -110,7 +105,6 @@ def apply_defaults(params):
     return result
 
 def validate_graph_parameters(params):
-    """Проверяет корректность параметров графа"""
     errors = []
     
     if params['graph_size'] < 1:
@@ -127,7 +121,6 @@ def validate_graph_parameters(params):
     return errors
 
 def generate_graph(size, is_weighted, is_directed, density):
-    """Генерирует матрицу смежности графа"""
     graph = [[0] * size for _ in range(size)]
     
     for i in range(size):
@@ -149,7 +142,6 @@ def generate_graph(size, is_weighted, is_directed, density):
     return graph
 
 def bfsd(G, v):
-    """BFS обход графа с вычислением расстояний"""
     q = deque()
     q.append(v)
     dist = [-1] * len(G)
@@ -167,7 +159,6 @@ def bfsd(G, v):
     
 
 def print_current_config(params, args_count):
-    """Выводит текущую конфигурацию графа"""
     is_directed = params['graph_type'] == 'ori'
     is_weighted = params['weighted_mode'] == 'weighted'
     
@@ -180,3 +171,51 @@ def print_current_config(params, args_count):
     
     if args_count < 5:
         print(f"  • Использовано аргументов: {args_count}/5")
+
+
+
+
+def ecentrice(G):
+    ecentrices = [0]*len(G)
+    for i in range(len(G)):
+        ecentrices[i] = max(bfsd(G, i))
+
+    return ecentrices
+
+def diametri(ecentices):
+    diam = max(ecentices)
+    return diam
+# print(bfsd(generate_adjacency_matrix_neor(4, density=0.3,), 1), ecentrice(bfsd(generate_adjacency_matrix_neor(4, density=0.3,), 1), 1))
+
+# print(bfsd(generate_adjacency_matrix_or(4, density=0.6,), 2), ecentrice(bfsd(generate_adjacency_matrix_or(4, density=0.6,), 2), 2))
+
+def perif(ecentrices, diam):
+    peripheral_vertices = []
+    for i, ecc in enumerate(ecentrices):
+        if ecc == diam:
+            peripheral_vertices.append(i)
+    return peripheral_vertices  # Возвращаем список всех периферийных вершин
+
+   
+
+
+def radiusi(ecentrices):
+    rad = min(ecentrices) if min(ecentrices, 1)!=0 else min(ecentrices, 1,key= 1)
+    return rad
+
+
+
+def centr(ecentrices, rad):
+    peripheral_vertices = []
+    for i, ecc in enumerate(ecentrices):
+        if ecc == rad:
+            peripheral_vertices.append(i)
+    return peripheral_vertices  # Возвращаем список всех периферийных вершин
+
+
+
+def info(G):
+        diametri(G)
+        radiusi(G)
+        centr(G)
+        perif(G)

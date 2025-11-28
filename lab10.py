@@ -29,27 +29,54 @@ def main():
         )
         
         
-        print(f"\nBFS обход из вершины {final_params['start_vertex']}:")
-        distances = bfsd(graph, final_params['start_vertex'])
+        # print(f"\nBFS обход из вершины {final_params['start_vertex']}:")
+
+        distances = [0]*len(graph)
+
+        ecentrices = [0]*len(graph)
+
+        for i in range(len(graph)):
+            distances[i] = bfsd(graph, i)
+            ecentrices[i] = max(distances[i])
+
+
         
-        print(f"\n Расстояния от вершины {final_params['start_vertex']}:")
-        reachable = 0
-        for i, dist in enumerate(distances):
-            status = str(dist) if dist != -1 else "недостижима"
-            print(f"  Вершина {i}: {status}")
-            if dist != -1:
-                reachable += 1
+        print(f"\nМатрица расстояний:\n{np.array(distances)}\n")
+
+        print(f"Эксцентриситеты\n{np.array(ecentrices)}")
+    
+        radius = min(ecentrices) if min(ecentrices) != 0 else None
+        print(f"Радиус: {radius}, центральная вершина: {ecentrices.index(radius)}")
+
+        diametr = max(ecentrices) if max(ecentrices) != 0 else None
+        print(f"Диаметр: {diametr}, Периферийные вершина: {perif(ecentrices, diametri(ecentrices))}")
+        
+        # print(f"\n Расстояния от вершины {final_params['start_vertex']}:")
+        # reachable = 0
+
+        
+        # info(graph)
+
+        # for i, dist in enumerate(distances):
+        #     status = str(dist) if dist != -1 else "недостижима"
+        #     print(f"  Вершина {i}: {status}")
+        #     if dist != -1:
+        #         reachable += 1
         
        
         
-        if reachable > 0:
-            max_dist = max(d for d in distances if d != -1)
-            print(f"  • Максимальное расстояние: {max_dist}")
+        # if reachable > 0:
+        #     max_dist = max(d for d in distances if d != -1)
+        #     print(f"  • Максимальное расстояние: {max_dist}")
         
         # if len(args.args) < 3:
         #     print(f"\n Подсказка: можно указать до 5 параметров в любом порядке")
         #     print_usage_examples()
-        
+
+
+        # info(graph)
+
+
     except Exception as e:
         print(f"Неожиданная ошибка: {e}")
         sys.exit(1)
