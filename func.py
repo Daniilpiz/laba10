@@ -200,18 +200,25 @@ def perif(ecentrices, diam):
 
 
 def radiusi(ecentrices):
-    rad = min(ecentrices) if min(ecentrices, 1)!=0 else min(ecentrices, 1,key= 1)
-    return rad
+    return min(ecentrices)
 
 
-
-def centr(ecentrices, rad):
-    peripheral_vertices = []
-    for i, ecc in enumerate(ecentrices):
-        if ecc == rad:
-            peripheral_vertices.append(i)
-    return peripheral_vertices  # Возвращаем список всех периферийных вершин
-
+def centr(eccentricities, radius):
+    """
+    Находит ВСЕ центральные вершины (эксцентриситет == радиус).
+    
+    Args:
+        eccentricities: список эксцентриситетов вершин
+        radius: радиус графа
+    
+    Returns:
+        Список индексов центральных вершин (может быть несколько)
+    """
+    centers = []
+    for idx, ecc in enumerate(eccentricities):
+        if ecc == radius:
+            centers.append(idx)
+    return centers  # Возвращаем полный список!
 
 
 def info(G):

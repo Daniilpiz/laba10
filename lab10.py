@@ -46,7 +46,7 @@ def main():
         print(f"Эксцентриситеты\n{np.array(ecentrices)}")
     
         radius = min(ecentrices) if min(ecentrices) != 0 else None
-        print(f"Радиус: {radius}, центральная вершина: {ecentrices.index(radius)}")
+        print(f"Радиус: {radius}, центральная вершина: {centr(ecentrices, radiusi(ecentrices))}")
 
         diametr = max(ecentrices) if max(ecentrices) != 0 else None
         print(f"Диаметр: {diametr}, Периферийные вершина: {perif(ecentrices, diametri(ecentrices))}")
@@ -83,3 +83,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    # центр тяжести графа найти в графе в этой теме
